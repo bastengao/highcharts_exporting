@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Add `highcharts_controller.rb` and add routes `post 'highcharts/export'`.
+Add `highcharts_controller.rb` and add route `post 'highcharts/export'`.
 
 ```ruby
 class HighchartsController < ApplicationController
@@ -29,7 +29,7 @@ class HighchartsController < ApplicationController
 end
 ```
 
-Config url '/highcharts/export' for highcharts exporting.
+Config url `/highcharts/export` for highcharts exporting.
 
 
 ## Contributing
