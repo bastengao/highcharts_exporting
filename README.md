@@ -31,6 +31,11 @@ end
 
 Config url `/highcharts/export` for highcharts exporting.
 
+## References
+
+* http://www.highcharts.com/docs/export-module/export-module-overview
+* https://github.com/highslide-software/highcharts.com/tree/master/exporting-server/phantomjs
+
 
 ## Contributing
 
