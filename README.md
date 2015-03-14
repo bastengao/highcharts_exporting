@@ -1,5 +1,9 @@
 # highcharts_exporting
 
+[![Build Status](https://travis-ci.org/bastengao/highcharts_exporting.svg?branch=master)](https://travis-ci.org/bastengao/highcharts_exporting)
+[![Code Climate](https://codeclimate.com/github/bastengao/highcharts_exporting/badges/gpa.svg)](https://codeclimate.com/github/bastengao/highcharts_exporting)
+[![Gem Version](https://badge.fury.io/rb/highcharts_exporting.svg)](http://badge.fury.io/rb/highcharts_exporting)
+
 Highcharts server exporting for Rails.
 
 ## Installation
