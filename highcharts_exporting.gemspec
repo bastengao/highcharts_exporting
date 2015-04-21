@@ -1,15 +1,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-require "highcharts_exporting/version"
+require "canvas_exporting/version"
 
 Gem::Specification.new do |s|
-  s.name        = "highcharts_exporting"
-  s.version     = HighchartsExporting::VERSION
-  s.authors     = ["bastengao"]
-  s.email       = ["bastengao@gmail.com"]
-  s.homepage    = "https://github.com/bastengao/highcharts_exporting"
-  s.summary     = "Highcharts server exporting for Rails"
-  s.description = "Highcharts server exporting for Rails"
+  s.name        = "canvas_exporting"
+  s.version     = CanvasExporting::VERSION
+  s.authors     = ["jeffolen4","orangewolf"]
+  s.email       = ["jmo@olen-inc.com","rob@notch8.com"]
+  s.homepage    = "https://github.com/notch8/canvas_exporting"
+  s.summary     = "canvas server exporting for Rails"
+  s.description = "canvas server exporting for Rails"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,phantomjs}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
