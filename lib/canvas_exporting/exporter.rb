@@ -19,6 +19,8 @@ module CanvasExporting
         output_path = params[:outputpath]
       end
 
+      output_path = output_path + '/' if output_path[-1] != '/'
+
       if params[:filename] == nil
         filename = 'Chart.' + extension
       else
@@ -40,7 +42,7 @@ module CanvasExporting
                                   })
 
       result = ::Phantomjs.run(*convert_args)
-      puts result if VERBOSE
+      #puts result if VERBOSE
 
       # TODO: clean @output_tmp_file
       @infile_tmp_file.delete
@@ -49,7 +51,7 @@ module CanvasExporting
       if /Error/ =~ result
         render text: result, status: 500
       else
-        send_file output_path, filename: "#{filename}", type: type
+        send_file @output_file, filename: "#{filename}", type: type
       end
     end
 

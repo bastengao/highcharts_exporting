@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  post 'highcharts/export'
+  post 'canvas/export'
 end

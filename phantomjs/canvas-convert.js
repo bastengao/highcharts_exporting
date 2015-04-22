@@ -112,49 +112,6 @@
 			console.log(msg);
 		};
 
-		/* scale and clip the page */
-		// scaleAndClipPage = function (svg) {
-		// 	/*	param: svg: The scg configuration object
-		// 	*/
-		//
-		// 	var zoom = 1,
-		// 		pageWidth = pick(params.width, svg.width),
-		// 		clipwidth,
-		// 		clipheight;
-		//
-		// 	if (parseInt(pageWidth, 10) == pageWidth) {
-		// 		zoom = pageWidth / svg.width;
-		// 	}
-		//
-		// 	/* set this line when scale factor has a higher precedence
-		// 	scale has precedence : page.zoomFactor = params.scale  ? zoom * params.scale : zoom;*/
-		//
-		// 	/* params.width has a higher precedence over scaling, to not break backover compatibility */
-		// 	page.zoomFactor = params.scale && params.width == undefined ? zoom * params.scale : zoom;
-		//
-		// 	clipwidth = svg.width * page.zoomFactor;
-		// 	clipheight = svg.height * page.zoomFactor;
-		//
-		// 	/* define the clip-rectangle */
-		// 	/* ignored for PDF, see https://github.com/ariya/phantomjs/issues/10465 */
-		// 	page.clipRect = {
-		// 		top: 0,
-		// 		left: 0,
-		// 		width: clipwidth,
-		// 		height: clipheight
-		// 	};
-		//
-		// 	/* for pdf we need a bit more paperspace in some cases for example (w:600,h:400), I don't know why.*/
-		// 	if (outType === 'pdf') {
-		// 		// changed to a multiplication with 1.333 to correct systems dpi setting
-		// 		clipwidth = clipwidth * dpiCorrection;
-		// 		clipheight = clipheight * dpiCorrection;
-		// 		// redefine the viewport
-		// 		page.viewportSize = { width: clipwidth, height: clipheight};
-		// 		// make the paper a bit larger than the viewport
-		// 		page.paperSize = { width: clipwidth + 2 , height: clipheight + 2 };
-		// 	}
-		// };
 
 		exit = function (result) {
 			if (serverMode) {
@@ -164,164 +121,33 @@
 			exitCallback(result);
 		};
 
-		// convert = function (svg) {
-		// 	var base64;
-		// 	scaleAndClipPage(svg);
-		// 	if (outType === 'pdf' || output !== undefined || !serverMode) {
-		// 		if (output === undefined) {
-		// 			// in case of pdf files
-		// 			output = config.tmpDir + '/chart.' + outType;
-		// 		}
-		// 		page.render(output);
-		// 		exit(output);
-		// 	} else {
-		// 		base64 = page.renderBase64(outType);
-		// 		exit(base64);
-		// 	}
-		// };
-
-        // function decrementImgCounter() {
-        //     counter -= 1;
-        //     if (counter < 1) {
-        //         imagesLoaded = true;
-        //     }
-        // }
-        //
-        // function loadImages(imgUrls) {
-        //     var i, img;
-        //     counter = imgUrls.length;
-        //     for (i = 0; i < imgUrls.length; i += 1) {
-        //         img = new Image();
-        //         /* onload decrements the counter, also when error (perhaps 404), don't wait for this image to be loaded */
-        //         img.onload = img.onerror = decrementImgCounter;
-        //         /* force loading of images by setting the src attr.*/
-        //         img.src = imgUrls[i];
-        //     }
-        // }
-
-		// renderSVG = function (svg) {
-		// 	var svgFile;
-		// 	// From this point we have 'loaded' or 'created' a SVG
-    //
-    //         // Do we have to load images?
-    //         if (svg.imgUrls.length > 0) {
-    //             loadImages(svg.imgUrls);
-    //         } else  {
-    //              // no images present, no loading, no waiting
-    //             imagesLoaded = true;
-    //         }
-    //
-		// 	try {
-		// 		if (outType.toLowerCase() === 'svg') {
-		// 			// output svg
-		// 			svg = svg.html.replace(/<svg /, '<svg xmlns:xlink="http://www.w3.org/1999/xlink" ').replace(/ href=/g, ' xlink:href=').replace(/<\/svg>.*?$/, '</svg>');
-		// 			// add xml doc type
-		// 			svg = SVG_DOCTYPE + svg;
-		//
-		// 			if (output !== undefined) {
-		// 				// write the file
-		// 				svgFile = fs.open(output, "w");
-		// 				svgFile.write(svg);
-		// 				svgFile.close();
-		// 				exit(output);
-		// 			} else {
-		// 				// return the svg as a string
-		// 				exit(svg);
-		// 			}
-		//
-		// 		} else {
-		// 			// output binary images or pdf
-		// 			if (!imagesLoaded) {
-		// 				// render with interval, waiting for all images loaded
-		// 				interval = window.setInterval(function () {
-		// 					if (imagesLoaded) {
-		// 						clearTimeout(timer);
-		// 						clearInterval(interval);
-		// 						convert(svg);
-		// 					}
-		// 				}, 50);
-		//
-		// 				// we have a 5 second timeframe..
-		// 				timer = window.setTimeout(function () {
-		// 					clearInterval(interval);
-		// 					exitCallback('ERROR: While rendering, there\'s is a timeout reached');
-		// 				}, config.TIMEOUT);
-		// 			} else {
-		// 				// images are loaded, render rightaway
-		// 				convert(svg);
-		// 			}
-		// 		}
-		// 	} catch (e) {
-		// 		console.log('ERROR: While rendering, ' + e);
-		// 	}
-		// };
-
-		// loadChart = function (input, outputType) {
-		// 	var nodeIter, nodes, elem, opacity, svgElem, imgs, imgUrls, imgIndex;
-		//
-		// 	document.body.style.margin = '0px';
-		// 	document.body.innerHTML = input;
-		//
-		// 	if (outputType === 'jpeg') {
-		// 		document.body.style.backgroundColor = 'white';
-		// 	}
-    //
-		// 	nodes = document.querySelectorAll('*[stroke-opacity]');
-		//
-		// 	for (nodeIter = 0; nodeIter < nodes.length; nodeIter += 1) {
-		// 		elem = nodes[nodeIter];
-		// 		opacity = elem.getAttribute('stroke-opacity');
-		// 		elem.removeAttribute('stroke-opacity');
-		// 		elem.setAttribute('opacity', opacity);
-		// 	}
-		//
-		// 	svgElem = document.getElementsByTagName('svg')[0];
-    //
-    //         imgs = document.getElementsByTagName('image');
-    //         imgUrls = [];
-    //
-    //         for (imgIndex = 0; imgIndex < imgs.length; imgIndex = imgIndex + 1) {
-    //             imgUrls.push(imgs[imgIndex].href.baseVal);
-    //         }
-		//
-		// 	return {
-		// 	    html: document.body.innerHTML,
-		// 	    width: svgElem.getAttribute("width"),
-		// 	    height: svgElem.getAttribute("height"),
-    //             imgUrls: imgUrls
-		// 	};
-		// };
-
-
-		var loadChart = function( string_in, outputType ) {
+		loadChart = function( string_in, outputType ) {
 
 			try {
 
-				var $container, htmlout;
-
-				// console.log ("loadCanvasChart params:");
-				// console.log ("string_in: " + string_in);
-				// console.log ("outType: " + outType);
-				// console.log ("width: " + width);
+				var container, htmlout;
 
 				$(document.body).css('margin', '0px');
 
 				$(document.body).css('backgroundColor', 'white');
 
-				$container = $('<div>').appendTo(document.body);
-				$container.attr('id', 'chartContainer' );
+				container = $('<div>').appendTo(document.body);
+				container.attr('id', 'chartContainer' );
 				// var sizing = 'width: ' + width + 'px;';
 				// $container.attr('style', sizing );
 				//console.log(" json_in: " + JSON.parse(json_in) );
 				var json_in = JSON.parse(string_in);
-				json_in = JSON.parse(json_in);
+				//json_in = JSON.parse(json_in);
 				json_in["animationEnabled"] = false;
 
-				//console.log ("json just before canvas rendering: " + JSON.stringify(json_in));
+				//console.log ("just before canvas rendering");
 
 				var chartTest = new CanvasJS.Chart("chartContainer", json_in );
+				console.log ("complete the object create");
 
 				var rs = chartTest.render();
+				console.log ("completed the rendering");
+
 				var htmlout = $('.canvasjs-chart-canvas')[0];
 				//var imageData = htmlout.toDataURL(outType, 0.92 );
 				var imageData = htmlout.toDataURL('image/'+outputType, 0.92 );
@@ -335,144 +161,14 @@
 			};
 		};
 
-		// createChart = function (constr, input, globalOptionsArg, dataOptionsArg, customCodeArg, outputType, callback, messages) {
-		//
-		// 	var $container, chart, nodes, nodeIter, elem, opacity, imgIndex, imgs, imgUrls;
-		//
-    //         // dynamic script insertion
-		// 	function loadScript(varStr, codeStr) {
-		// 		var $script = $('<script>').attr('type', 'text/javascript');
-		// 		$script.html('var ' + varStr + ' = ' + codeStr);
-		// 		document.getElementsByTagName("head")[0].appendChild($script[0]);
-		// 		if (window[varStr] !== undefined) {
-		// 			console.log('Canvas.' + varStr + '.parsed');
-		// 		}
-		// 	}
-		//
-		// 	function parseData(completeHandler, chartOptions, dataConfig) {
-		// 		try {
-		// 			dataConfig.complete = completeHandler;
-		// 			Highcharts.data(dataConfig, chartOptions);
-		// 		} catch (error) {
-		// 			completeHandler(undefined);
-		// 		}
-		// 	}
-		//
-		// 	if (input !== 'undefined') {
-		// 		loadScript('options', input);
-		// 	}
-		//
-		// 	if (callback !== 'undefined') {
-		// 		loadScript('cb', callback);
-		// 	}
-		//
-		// 	if (globalOptionsArg !== 'undefined') {
-		// 		loadScript('globalOptions', globalOptionsArg);
-		// 	}
-		//
-		// 	if (dataOptionsArg !== 'undefined') {
-		// 		loadScript('dataOptions', dataOptionsArg);
-		// 	}
-		//
-		// 	if (customCodeArg !== 'undefined') {
-		// 		loadScript('customCode', customCodeArg);
-		// 	}
-		//
-		// 	$(document.body).css('margin', '0px');
-		//
-		// 	if (outputType === 'jpeg') {
-		// 		$(document.body).css('backgroundColor', 'white');
-		// 	}
-		//
-		// 	$container = $('<div>').appendTo(document.body);
-		// 	$container.attr('id', 'container');
-		//
-		// 	// disable animations
-		// 	Highcharts.SVGRenderer.prototype.Element.prototype.animate = Highcharts.SVGRenderer.prototype.Element.prototype.attr;
-		// 	Highcharts.setOptions({
-		// 		plotOptions: {
-		// 			series: {
-		// 				animation: false
-		// 			}
-		// 		}
-		// 	});
-		//
-		// 	if (!options.chart) {
-		// 		options.chart = {};
-		// 	}
-		//
-		// 	options.chart.renderTo = $container[0];
-		//
-		// 	// check if witdh is set. Order of precedence:
-		// 	// args.width, options.chart.width and 600px
-		//
-		// 	// OLD. options.chart.width = width || options.chart.width || 600;
-		// 	// Notice we don't use commandline parameter width here. Commandline parameter width is used for scaling.
-		//
-		// 	options.chart.width = (options.exporting && options.exporting.sourceWidth) || options.chart.width || 600;
-		// 	options.chart.height = (options.exporting && options.exporting.sourceHeight) || options.chart.height || 400;
-		//
-		// 	// Load globalOptions
-		// 	if (globalOptions) {
-		// 		Highcharts.setOptions(globalOptions);
-		// 	}
-		//
-		// 	// Load data
-		// 	if (dataOptions) {
-		// 		parseData(function completeHandler(opts) {
-		// 			// Merge series configs
-		// 			if (options.series) {
-		// 				Highcharts.each(options.series, function (series, i) {
-		// 					options.series[i] = Highcharts.merge(series, opts.series[i]);
-		// 				});
-		// 			}
-		//
-		// 			var mergedOptions = Highcharts.merge(opts, options);
-		//
-		// 			// Run customCode
-		// 			if (customCode) {
-		// 				customCode(mergedOptions);
-		// 			}
-		//
-		// 			chart = new Highcharts[constr](mergedOptions, cb);
-		//
-		// 		}, options, dataOptions);
-		// 	} else {
-		// 		chart = new Highcharts[constr](options, cb);
-		// 	}
-		//
-		// 	/* remove stroke-opacity paths, used by mouse-trackers, they turn up as
-		// 	*  as fully opaque in the PDF
-		// 	*/
-		// 	nodes = document.querySelectorAll('*[stroke-opacity]');
-		//
-		// 	for (nodeIter = 0; nodeIter < nodes.length; nodeIter += 1) {
-		// 		elem = nodes[nodeIter];
-		// 		opacity = elem.getAttribute('stroke-opacity');
-		// 		elem.removeAttribute('stroke-opacity');
-		// 		elem.setAttribute('opacity', opacity);
-		// 	}
-    //
-    //         imgs = document.getElementsByTagName('image');
-    //         imgUrls = [];
-    //
-    //         for (imgIndex = 0; imgIndex < imgs.length; imgIndex = imgIndex + 1) {
-    //             imgUrls.push(imgs[imgIndex].href.baseVal);
-    //         }
-    //
-		// 	return {
-		// 		html: $('div.highcharts-container')[0].innerHTML,
-		// 		width: chart.chartWidth,
-		// 		height: chart.chartHeight,
-    //             imgUrls: imgUrls
-		// 	};
-		// };
 
 		if (params.length < 1) {
 			exit("Error: Insufficient parameters");
 		} else {
 			input = params.infile;
 			output = params.outfile;
+			console.log("input: " + input);
+			console.log("output: " + output);
 
 			if (output !== undefined) {
 				outType = pick(output.split('.').pop(),'png');
@@ -495,24 +191,15 @@
 					customCode = 'function customCode(options) {\n' + params.customcode + '}\n',
 					jsfile;
 
-				/* Decide if we have to generate a svg first before rendering */
-				// if (input.substring(0, 4).toLowerCase() === "<svg" || input.substring(0, 5).toLowerCase() === "<?xml"
-				// 	|| input.substring(0, 9).toLowerCase() === "<!doctype") {
-				// 	//render page directly from svg file
-				// 	svg = page.evaluate(loadChart, input, outType);
-				// 	page.viewportSize = { width: svg.width, height: svg.height };
-				// 	renderSVG(svg);
-				// } else {
-					// We have a js file, let highcharts create the chart first and grab the svg
-
 				// load necessary libraries
 				for (jsfile in config.files) {
 					if (config.files.hasOwnProperty(jsfile)) {
 						page.injectJs(config.files[jsfile]);
+						//console.log("injecting: " + config.files[jsfile] );
 					}
 				}
 
-				var rs = page.evaluate(loadCanvasChart, input, outType );
+				var rs = page.evaluate(loadChart, input, outType );
 
 				try {
 					var result = rs["html"].split(",")
@@ -525,17 +212,8 @@
 				}
 
 				// return the tmp file name and path to the calling process
-				exit(output)
+				exit(params.outfile)
 
-				if (!window.optionsParsed) {
-					exit('ERROR: the options variable was not available or couldn\'t be parsed, does the infile contain an syntax error? Input used:' + input);
-				}
-
-				if (callback !== undefined && !window.callbackParsed) {
-					exit('ERROR: the callback variable was not available, does the callback contain an syntax error? Callback used: ' + callback);
-				}
-					// renderSVG(svg);
-				// }
 			});
 		}
 	};
@@ -580,6 +258,8 @@
 
 	args = mapCLArguments();
 
+	//console.log("made it past the args mapper")
+	//console.log("arguments: " + JSON.stringify(args));
 	// set tmpDir, for output temporary files.
 	if (args.tmpdir === undefined) {
 		config.tmpDir = fs.workingDirectory + '/tmp';
@@ -601,6 +281,7 @@
 		startServer(args.host, args.port);
 	} else {
 		// presume commandline usage
+		//console.log("calling the renderer");
 		render(args, function (msg) {
 			console.log(msg);
 			phantom.exit();
