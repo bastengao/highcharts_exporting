@@ -9,6 +9,8 @@ Highcharts server exporting for Rails.
 
 ## Installation
 
+_**NOTE**_: [Phatomjs](https://github.com/colszowka/phantomjs-gem) is required, please install it before.
+
 Add this line to your application's Gemfile:
 
 ```ruby
