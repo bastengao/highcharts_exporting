@@ -27,7 +27,7 @@ Or install it yourself as:
 
 ## Usage
 
-Add `highcharts_controller.rb` and add route `post 'highcharts/export'`.
+Add `highcharts_controller.rb`.
 
 ```ruby
 class HighchartsController < ApplicationController
@@ -36,7 +36,28 @@ class HighchartsController < ApplicationController
 end
 ```
 
-Config url `/highcharts/export` for highcharts exporting.
+Add route in `routes.rb`.
+```ruby
+post 'highcharts/export'
+```
+
+Config url `/highcharts/export` in highcharts [options](http://api.highcharts.com/highcharts#exporting).
+
+```javascript
+$('#container').highcharts({
+  ...
+  exporting: {
+    url: '/highcharts/export'
+    ...
+  }
+});
+```
+
+## Hot it works
+
+Default Hightcharts privides two implementations of languages(PHP and Java) as export server, for more [details](http://www.highcharts.com/docs/export-module/setting-up-the-server).
+
+However Hightcharts also privides a [image convert script](https://github.com/highcharts/highcharts-export-server/tree/master/phantomjs) executing in Phantomjs environment for exporting. I just use [Phantomjs gem](https://github.com/colszowka/phantomjs-gem) to invoke `highcharts-convert.js` with params sent by client. More [details](http://www.highcharts.com/docs/export-module/render-charts-serverside).
 
 ## References
 
