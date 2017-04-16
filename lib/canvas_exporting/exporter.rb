@@ -5,7 +5,7 @@ require 'phantomjs'
 # references:
 #   http://www.highcharts.com/docs/export-module/export-module-overview
 #   https://github.com/highslide-software/highcharts.com/tree/master/exporting-server/phantomjs
-module HighchartsExporting
+module CanvasExporting
   module Exporter
     def export
       @infile_tmp_file = infile_file
@@ -13,14 +13,28 @@ module HighchartsExporting
       type = params[:type] || 'image/png'
       extension = MIME::Types[type].first.extensions.first
 
-      @output_tmp_file = Tempfile.new(['output', ".#{extension}"], tmp_dir)
-      filename = params[:filename] || 'Chart'
+      if params[:outputpath] == nil
+        output_path = tmp_dir
+      else
+        output_path = params[:outputpath]
+      end
+
+      output_path = output_path + '/' if output_path[-1] != '/'
+
+      if params[:filename] == nil
+        filename = 'Chart.' + extension
+      else
+        filename = params[:filename]
+      end
+
+      @output_file = output_path + filename
+
       scale = params[:scale] || 2
       width = params[:width]
       constr = params[:constr] || 'Chart'
 
       convert_args = convert_args({infile: @infile_tmp_file.path,
-                                   outfile: @output_tmp_file.path,
+                                   outfile: @output_file,
                                    scale: scale,
                                    width: width,
                                    constr: constr,
@@ -28,7 +42,7 @@ module HighchartsExporting
                                   })
 
       result = ::Phantomjs.run(*convert_args)
-      puts result if VERBOSE
+      #puts result if VERBOSE
 
       # TODO: clean @output_tmp_file
       @infile_tmp_file.delete
@@ -37,13 +51,13 @@ module HighchartsExporting
       if /Error/ =~ result
         render text: result, status: 500
       else
-        send_file @output_tmp_file.path, filename: "#{filename}.#{extension}", type: type
+        send_file @output_file, filename: "#{filename}", type: type
       end
     end
 
     protected
     def tmp_dir
-      Rails.root.join('tmp/highcharts').to_s.tap { |f| FileUtils.mkdir_p f }
+      Rails.root.join('tmp/canvas_charts').to_s.tap { |f| FileUtils.mkdir_p f }
     end
 
     def infile_file
@@ -76,7 +90,7 @@ module HighchartsExporting
     end
 
     def convert_js_path
-      File.join(ROOT, 'phantomjs/highcharts-convert.js').to_s
+      File.join(ROOT, 'phantomjs/canvas-convert.js').to_s
     end
 
     def temp_write(tmp_file, content)

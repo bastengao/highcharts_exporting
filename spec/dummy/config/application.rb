@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "highcharts_exporting"
+require "canvas_exporting"
 
 module Dummy
   class Application < Rails::Application
@@ -26,4 +26,3 @@ module Dummy
     # config.i18n.default_locale = :de
   end
 end
-
